@@ -20,7 +20,13 @@ const ListTask = ({ tasks , setTasks}) =>{
     return (
         <div className="flex gap-16">
             {statuses.map((status , index)=>(
-                <Section key={index} status={status} />
+                <Section key={index} status={status} 
+                tasks={tasks}
+                setTasks={setTasks}
+                todos={todos}
+                inProgress={inProgress}
+                closed={closed}
+                />
             ))}
         </div>
     )
@@ -28,10 +34,22 @@ const ListTask = ({ tasks , setTasks}) =>{
 
 export default ListTask;
 
-const Section = ({status }) =>{
+const Section = ({status , tasks  , setTasks , todos, inProgress , closed}) =>{
+    let text = "Todo";
+    let bg = "bg-slate-500";
+    
     return (
-        <div>
-            <h2>{status}</h2> List
+        <div className={`w-64 h-64`}>
+           <Header text={text} bg={bg} count={todos.length} /> List
         </div>
     )
+}
+
+const Header = ({text , bg , count}) =>{
+ return (
+    <div className={`${bg} flex items-center h-12 pl-4  uppercase text-sm text-white `}>
+    {text} 
+    <div className="ml-2 bg-white w-5 h-5 text-black rounded-full flex items-center justify-center"> {count} </div>
+    </div>
+ )
 }
