@@ -63,7 +63,7 @@ const Section = ({status , tasks  , setTasks , todos, inProgress , closed}) =>{
   }
 
 
-    let text = "Todo";
+    let text = "Todo 999";
     let bg = "bg-slate-500";
     let tasksToMap = todos;
 
@@ -74,9 +74,9 @@ const Section = ({status , tasks  , setTasks , todos, inProgress , closed}) =>{
     }
 
     if(status === "closed"){
-        text = "In Progress"
-        bg ="bg-purple-500"
-        tasksToMap = inProgress
+        text = "Closed"
+        bg ="bg-green-500"
+        tasksToMap = closed
 }
 
 
@@ -84,7 +84,7 @@ const Section = ({status , tasks  , setTasks , todos, inProgress , closed}) =>{
     return (
         <div 
          ref={drop}
-        className={`w-64 h-64 rounded-md p-2 ${isOver ? "bg-slate-200" : ""}`}>
+        className={` bg-red-100 w-64 h-64 rounded-md p-2 ${isOver ? "bg-slate-200" : ""}`}>
            <Header text={text} bg={bg} count={tasksToMap.length} /> 
            {tasksToMap.length > 0 && tasksToMap.map(task => (
             <Tasks key={task.id}
