@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-
+import { MdOutlineDeleteOutline } from "react-icons/md";
 const ListTask = ({ tasks , setTasks}) =>{
     const [todos , setTodos] = useState([]);
     const [inProgress , setInProgress] = useState([]);
@@ -37,10 +37,32 @@ export default ListTask;
 const Section = ({status , tasks  , setTasks , todos, inProgress , closed}) =>{
     let text = "Todo";
     let bg = "bg-slate-500";
-    
+    let tasksToMap = todos;
+
+    if(status === "inprogress"){
+            text = "In Progress"
+            bg ="bg-purple-500"
+            tasksToMap = inProgress
+    }
+
+    if(status === "closed"){
+        text = "In Progress"
+        bg ="bg-purple-500"
+        tasksToMap = inProgress
+}
+
+
+        
     return (
         <div className={`w-64 h-64`}>
-           <Header text={text} bg={bg} count={todos.length} /> List
+           <Header text={text} bg={bg} count={tasksToMap.length} /> 
+           {tasksToMap.length > 0 && tasksToMap.map(task => (
+            <Tasks key={task.id}
+            tasks={tasks}
+            setTasks={setTasks}
+            task={task}
+            />
+           ))}
         </div>
     )
 }
@@ -53,3 +75,20 @@ const Header = ({text , bg , count}) =>{
     </div>
  )
 }
+
+
+const Tasks = ({task , tasks , setTasks}) =>{
+
+    const handleRemove = (id)=>{
+        console.log(id);
+        const fTask = tasks.filter(t => t.id!== id)
+    }
+    return (
+       <div className="relative p-4 mt-8 shadow-md rounded-md cursor-grab">
+            <p>{task.name}</p>
+            <MdOutlineDeleteOutline  className=" absolute button-1 right-1 text-slate-400" 
+             onClick={()=>handleRemove(task.id)}
+            />
+       </div>
+    )
+   }
